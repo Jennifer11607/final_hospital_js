@@ -3,17 +3,15 @@ const btnModificar = document.getElementById('btnModificar')
 const btnBuscar = document.getElementById('btnBuscar')
 const btnCancelar = document.getElementById('btnCancelar')
 const btnLimpiar = document.getElementById('btnLimpiar')
-const tablaPacientes = document.getElementById('tablaPacientes')
+const tablaClinicas = document.getElementById('tablaClinicas')
 const formulario = document.querySelector('form')
 
 btnModificar.parentElement.style.display = 'none'
 btnCancelar.parentElement.style.display = 'none'
 
-const getPacientes = async (alerta='si') => {
-    const nombre = formulario.paciente_nombre.value.trim()
-    const dpi = formulario.paciente_dpi.value.trim()
-    const telefono = formulario.paciente_telefono.value.trim()
-    const url = `/final_hospital_js/controladores/pacientes/index.php?paciente_nombre=${nombre}&paciente_dpi=${dpi}&paciente_telefono=${telefono}`
+const getClinicas = async (alerta='si') => {
+    const nombre = formulario.clinica_nombre.value.trim()
+    const url = `/final_hospital_js/controladores/clinicas/index.php?clinica_nombre=${nombre}`
     const config = {
         method: 'GET'
     }
@@ -23,7 +21,7 @@ console.log(url)
         const data = await respuesta.json();
         console.log(data);
 
-        tablaPacientes.tBodies[0].innerHTML = ''
+        tablaClinicas.tBodies[0].innerHTML = ''
         const fragment = document.createDocumentFragment()
         let contador = 1;
         if (respuesta.status == 200) {
@@ -35,7 +33,7 @@ console.log(url)
                     timer: 3000,
                     timerProgressBar: true,
                     icon: "success",
-                    title: 'Pacientes encontrados',
+                    title: 'Clinicas Encontradas',//
                     didOpen: (toast) => {
                         toast.onmouseenter = Swal.stopTimer;
                         toast.onmouseleave = Swal.resumeTimer;
@@ -45,40 +43,35 @@ console.log(url)
             
 
             if (data.length > 0) {
-                data.forEach(paciente => {
+                data.forEach(especialidad => {
                     const tr = document.createElement('tr')
                     const celda1 = document.createElement('td')
                     const celda2 = document.createElement('td')
                     const celda3 = document.createElement('td')
                     const celda4 = document.createElement('td')
-                    const celda5 = document.createElement('td')
-                    const celda6 = document.createElement('td')
                     const buttonModificar = document.createElement('button')
                     const buttonEliminar = document.createElement('button')
 
                     celda1.innerText = contador;
-                    celda2.innerText = paciente.PACIENTE_NOMBRE;
-                    celda3.innerText = paciente.PACIENTE_DPI;
-                    celda4.innerText = paciente.PACIENTE_TELEFONO;
+                    celda2.innerText = especialidad.ESPEC_NOMBRE;
+
 
 
                     buttonModificar.textContent = 'Modificar'
                     buttonModificar.classList.add('btn', 'btn-warning', 'w-100')
-                    buttonModificar.addEventListener('click', () => llenardatos(paciente) )
+                    buttonModificar.addEventListener('click', () => llenardatos(especialidad) )
                     //evento eliminar
                     buttonEliminar.textContent = 'Eliminar'
                     buttonEliminar.classList.add('btn', 'btn-danger', 'w-100')
-                    buttonEliminar.addEventListener('click', () => eliminar(paciente) )
+                    buttonEliminar.addEventListener('click', () => eliminar(especialidad) )
 
-                    celda5.appendChild(buttonModificar)
-                    celda6.appendChild(buttonEliminar)
+                    celda3.appendChild(buttonModificar)
+                    celda4.appendChild(buttonEliminar)
 
                     tr.appendChild(celda1)
                     tr.appendChild(celda2)
                     tr.appendChild(celda3)
                     tr.appendChild(celda4)
-                    tr.appendChild(celda5)
-                    tr.appendChild(celda6)
                     fragment.appendChild(tr);
 
                     contador++
@@ -88,7 +81,7 @@ console.log(url)
                 const tr = document.createElement('tr')
                 const td = document.createElement('td')
                 td.innerText = 'No hay pacientes'
-                td.colSpan = 6;
+                td.colSpan = 4;
 
                 tr.appendChild(td)
                 fragment.appendChild(tr)
@@ -97,7 +90,7 @@ console.log(url)
             console.log('error al cargar pacientes');
         }
 
-        tablaPacientes.tBodies[0].appendChild(fragment)
+        tablaEspecialidades.tBodies[0].appendChild(fragment)
     } catch (error) {
         console.log(error);
     }
@@ -106,16 +99,16 @@ console.log(url)
 
 //funcion guardar pacientes
 
-const guardarPaciente = async (e) => {
+const guardarEspecialidad = async (e) => {
     e.preventDefault();
     console.log('Botón Guardar presionado');  // Depuración
 
     btnGuardar.disabled = true;
 
-    const url = '/final_hospital_js/controladores/pacientes/index.php';
+    const url = '/final_hospital_js/controladores/especialidades/index.php';
     const formData = new FormData(formulario);
     formData.append('tipo', 1);
-    formData.delete('paciente_id');
+    formData.delete('espec_id');
     const config = {
         method: 'POST',
         body: formData
@@ -146,7 +139,7 @@ const guardarPaciente = async (e) => {
                     }
                 });
 
-                getPacientes(alerta = 'no');
+                getEspecialidades(alerta = 'no');
                 formulario.reset();
             } else {
                 console.log('Error:', detalle);
@@ -204,12 +197,10 @@ const guardarPaciente = async (e) => {
 
 
 //funcion modificar
-const llenardatos = (paciente) => {
+const llenardatos = (especialidad) => {
 
-    formulario.paciente_id.value = paciente.PACIENTE_ID
-    formulario.paciente_nombre.value = paciente.PACIENTE_NOMBRE
-    formulario.paciente_dpi.value = paciente.PACIENTE_DPI
-    formulario.paciente_telefono.value = paciente.PACIENTE_TELEFONO
+    formulario.espec_id.value = especialidad.ESPEC_ID
+    formulario.espec_nombre.value = especialidad.ESPEC_NOMBRE
     btnBuscar.parentElement.style.display = 'none'
     btnGuardar.parentElement.style.display = 'none'
     btnLimpiar.parentElement.style.display = 'none'
@@ -234,7 +225,7 @@ const modificar = async(e) => {
     e.preventDefault();
     btnModificar.disabled = true;
 
-    const url = '/final_hospital_js/controladores/pacientes/index.php';
+    const url = '/final_hospital_js/controladores/especialidades/index.php';
     const formData = new FormData(formulario);
     formData.append('tipo', 2);
     const config = {
@@ -265,7 +256,7 @@ const modificar = async(e) => {
 
             //funcion par que funcione cancelar
             formulario.reset()
-            getPacientes(alerta='no');
+            getEspecialidades(alerta='no');
 
             btnBuscar.parentElement.style.display = ''
             btnGuardar.parentElement.style.display = ''
@@ -307,12 +298,10 @@ const modificar = async(e) => {
     }
     btnModificar.disabled = false;
 
-    const llenardatos = (paciente) => {
+    const llenardatos = (especialidad) => {
 
-        formulario.paciente_id.value = paciente.PACIENTE_ID
-        formulario.paciente_nombre.value = paciente.PACIENTE_NOMBRE
-        formulario.paciente_dpi.value = paciente.PACIENTE_DPI
-        formulario.paciente_telefono.value = paciente.PACIENTE_TELEFONO
+        formulario.espec_id.value = especialidad.ESPEC_ID
+        formulario.espec_nombre.value = especialidad.ESPEC_NOMBRE
         btnBuscar.parentElement.style.display = 'none'
         btnGuardar.parentElement.style.display = 'none'
         btnLimpiar.parentElement.style.display = 'none'
@@ -325,7 +314,7 @@ const modificar = async(e) => {
 
 //funcion eliminar 
 
-const eliminar = async (paciente) => {
+const eliminar = async (especialidad) => {
     const confirmacion = await Swal.fire({
         title: '¿Estás seguro?',
         text: "¡No se podrá cambiar después!",
@@ -338,10 +327,10 @@ const eliminar = async (paciente) => {
     });
 
     if (confirmacion.isConfirmed) {
-        const url = '/final_hospital_js/controladores/pacientes/index.php';
+        const url = '/final_hospital_js/controladores/especialidades/index.php';
         const formData = new FormData();
         formData.append('tipo', 3);
-        formData.append('paciente_id', paciente.PACIENTE_ID);
+        formData.append('espec_id', especialidad.ESPEC_ID);
         const config = {
             method: 'POST',
             body: formData
@@ -376,7 +365,7 @@ const eliminar = async (paciente) => {
                     timer: 5000,
                 });
                 formulario.reset()
-                getPacientes(alerta='no');
+                getEspecialidades(alerta='no');
             } else {
                 console.log('Error:', detalle);
                 Swal.mixin({
@@ -413,9 +402,9 @@ const eliminar = async (paciente) => {
 };
 
    
-getPacientes();
-formulario.addEventListener('submit', guardarPaciente)
-btnBuscar.addEventListener('click', getPacientes)
+getEspecialidades();
+formulario.addEventListener('submit', guardarEspecialidad)
+btnBuscar.addEventListener('click', getEspecialidades)
 btnModificar.addEventListener('click', modificar)
 btnCancelar.addEventListener('click', cancelarAccion)
 

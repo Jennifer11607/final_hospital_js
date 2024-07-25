@@ -1,7 +1,7 @@
 <?php
-require '../../modelos/Paciente.php';
+require '../../modelos/Especialidad.php';
 header('Content-Type: application/json; charset=UTF-8');
-// Ejemplo de respuesta en PHP
+// para hacer pruba si recibe json en PHP
 // header('Content-Type: application/json');
 // $response = array(
 //     'mensaje' => 'Error de conexión',
@@ -14,26 +14,25 @@ header('Content-Type: application/json; charset=UTF-8');
 
 $metodo = $_SERVER['REQUEST_METHOD'];
 
-
 try {
     switch ($metodo) {
         case 'POST':
             $tipo = $_REQUEST['tipo'];
-            $paciente = new paciente($_POST);
+            $especialidad = new especialidad($_POST);
             switch ($tipo) {
                 case '1':
-                    $ejecucion = $paciente->guardar();
-                    $mensaje = "Guardado correctamente";
+                    $ejecucion = $especialidad->guardar();
+                    $mensaje = "Guardada correctamente";
                     break;
                     //aqui se creo el caso modificar
                 case '2':
-                    $ejecucion = $paciente->modificar();
-                    $mensaje = "Modificado correctamente";
+                    $ejecucion = $especialidad->modificar();
+                    $mensaje = "Modificada correctamente";
                     break;
                     //crear caso  eliminar
                 case '3':
-                    $ejecucion = $paciente->eliminar();
-                    $mensaje = "Eliminado correctamente";
+                    $ejecucion = $especialidad->eliminar();
+                    $mensaje = "Eliminada correctamente";
                         break;
 
                 default:
@@ -49,9 +48,9 @@ try {
 
         case 'GET':
             // http_response_code(200);
-            $paciente = new paciente($_GET);
-            $pacientes = $paciente->buscar();
-            echo json_encode($pacientes);
+            $especialidad = new especialidad($_GET);
+            $especialidades = $especialidad->buscar();
+            echo json_encode($especialidades);
 
             break;            
 
