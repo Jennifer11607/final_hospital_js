@@ -237,6 +237,7 @@ const modificar = async(e) => {
         console.log('Enviando datos:', ...formData.entries());
         const respuesta = await fetch(url, config);
         const data = await respuesta.json();
+        console.log(data)
         console.log('Respuesta recibida:', data);
         const { mensaje, codigo, detalle } = data;
         if (respuesta.ok && codigo === 1) {
@@ -256,7 +257,7 @@ const modificar = async(e) => {
 
             //funcion par que funcione cancelar
             formulario.reset()
-            getEspecialidades(alerta='no');
+            getClinicas(alerta='no');
 
             btnBuscar.parentElement.style.display = ''
             btnGuardar.parentElement.style.display = ''
@@ -327,7 +328,8 @@ const eliminar = async (clinica) => {
     });
 
     if (confirmacion.isConfirmed) {
-        const url = '/final_hospital_js/controladores/clinica/index.php';
+  
+        const url = '/final_hospital_js/controladores/clinicas/index.php';
         const formData = new FormData();
         formData.append('tipo', 3);
         formData.append('clinica_id', clinica.CLINICA_ID);

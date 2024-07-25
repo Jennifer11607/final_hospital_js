@@ -1,16 +1,15 @@
 <?php
 require '../../modelos/Clinica.php';
 header('Content-Type: application/json; charset=UTF-8');
-// para hacer pruba si recibe json en PHP
-// header('Content-Type: application/json');
-// $response = array(
-//     'mensaje' => 'Error de conexión',
-//     'codigo' => 0,
-//     'detalle' => 'Detalles del error'
-// );
-// echo json_encode($response);
-// exit;
-
+ //para hacer pruba si recibe json en PHP
+//  header('Content-Type: application/json');
+//  $response = array(
+//      'mensaje' => 'Error de conexión',
+//      'codigo' => 0,
+//      'detalle' => 'Detalles del error'
+//  );
+//  echo json_encode($response);
+//  exit;
 
 $metodo = $_SERVER['REQUEST_METHOD'];
 
@@ -48,7 +47,7 @@ try {
 
         case 'GET':
             // http_response_code(200);
-            $clinica = new especialidad($_GET);
+            $clinica = new clinica($_GET);
             $clinicas = $clinica->buscar();
             echo json_encode($clinicas);
 
