@@ -7,7 +7,7 @@
                 <a class="navbar-brand" href="#"><i class="bi bi-hospital"></i>  HOSPITAL ESPERANZA</a>
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/hospital_final_jimenez/zulu/inicio.php">INICIO</a>
+                        <a class="nav-link active" aria-current="page" href="/final_hospital_js/zulu/inicio.php">INICIO</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -15,10 +15,10 @@
                         </a>
                         <ul class="dropdown-menu bg-success">
                             <li class="nav-item">
-                                <a class="nav-link" href="/hospital_final_jimenez/vistas/pacientes/index.php"><i class="bi bi-pencil-fill"></i>  Ingresar Paciente</a>
+                                <a class="nav-link" href="/final_hospital_js/vistas/pacientes/index.php"><i class="bi bi-pencil-fill"></i>  Ingresar Paciente</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/hospital_final_jimenez/vistas/pacientes/buscar.php"><i class="bi bi-search"></i>  Buscar Paciente</a>
+                                <a class="nav-link" href="/final_hospital_js/vistas/pacientes/buscar.php"><i class="bi bi-search"></i>  Buscar Paciente</a>
                             </li>
                         </ul>
                     </li>
@@ -28,10 +28,10 @@
                         </a>
                         <ul class="dropdown-menu bg-success">
                             <li class="nav-item">
-                                <a class="nav-link" href="/hospital_final_jimenez/vistas/especialidades/index.php"><i class="bi bi-pencil-fill"></i>  Ingresar especialidad</a>
+                                <a class="nav-link" href="/final_hospital_js/vistas/especialidades/index.php"><i class="bi bi-pencil-fill"></i>  Ingresar especialidad</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/hospital_final_jimenez/vistas/especialidades/buscar.php"><i class="bi bi-search"></i> Buscar especialidad</a>
+                                <a class="nav-link" href="/final_hospital_js/vistas/especialidades/buscar.php"><i class="bi bi-search"></i> Buscar especialidad</a>
                             </li>
                         </ul>
                     </li>
@@ -41,10 +41,10 @@
                         </a>
                         <ul class="dropdown-menu bg-success">
                             <li class="nav-item">
-                                <a class="nav-link" href="/hospital_final_jimenez/vistas/clinicas/index.php"><i class="bi bi-pencil-fill"></i>  Ingresar clinica</a>
+                                <a class="nav-link" href="/final_hospital_js/vistas/clinicas/index.php"><i class="bi bi-pencil-fill"></i>  Ingresar clinica</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/hospital_final_jimenez/vistas/clinicas/buscar.php"><i class="bi bi-search"></i> Buscar clinica</a>
+                                <a class="nav-link" href="/final_hospital_js/vistas/clinicas/buscar.php"><i class="bi bi-search"></i> Buscar clinica</a>
                             </li>
                         </ul>
                     </li>
@@ -54,10 +54,10 @@
                         </a>
                         <ul class="dropdown-menu bg-success">
                             <li class="nav-item">
-                                <a class="nav-link" href="/hospital_final_jimenez/vistas/medicos/index.php"><i class="bi bi-pencil-fill"></i>  Ingresar Medico</a>
+                                <a class="nav-link" href="/final_hospital_js/vistas/medicos/index.php"><i class="bi bi-pencil-fill"></i>  Ingresar Medico</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/hospital_final_jimenez/vistas/medicos/buscar.php"><i class="bi bi-search"></i>  Buscar Medico</a>
+                                <a class="nav-link" href="/final_hospital_js/vistas/medicos/buscar.php"><i class="bi bi-search"></i>  Buscar Medico</a>
                             </li>
                         </ul>
                     </li>
@@ -67,13 +67,13 @@
                         </a>
                         <ul class="dropdown-menu bg-success">
                             <li class="nav-item">
-                                <a class="nav-link" href="/hospital_final_jimenez/vistas/citas/index.php"><i class="bi bi-pencil-fill"></i>  Ingresar Citas</a>
+                                <a class="nav-link" href="/final_hospital_js/vistas/citas/index.php"><i class="bi bi-pencil-fill"></i>  Ingresar Citas</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/hospital_final_jimenez/vistas/citas/buscar.php"><i class="bi bi-search"></i>  Buscar Citas</a>
+                                <a class="nav-link" href="/final_hospital_js/vistas/citas/buscar.php"><i class="bi bi-search"></i>  Buscar Citas</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/hospital_final_jimenez/vistas/citas/detalle.php"><i class="bi bi-cloud-download"></i>  Imprimir Citas</a>
+                                <a class="nav-link" href="/final_hospital_js/vistas/citas/detalle.php"><i class="bi bi-cloud-download"></i>  Imprimir Citas</a>
                             </li>
                         </ul>
                     </li>

@@ -3,18 +3,17 @@ const btnModificar = document.getElementById('btnModificar')
 const btnBuscar = document.getElementById('btnBuscar')
 const btnCancelar = document.getElementById('btnCancelar')
 const btnLimpiar = document.getElementById('btnLimpiar')
-const tablaClientes = document.getElementById('tablaClientes')
+const tablaPacientes = document.getElementById('tablaPacientes')
 const formulario = document.querySelector('form')
 
 btnModificar.parentElement.style.display = 'none'
 btnCancelar.parentElement.style.display = 'none'
 
-const getClientes = async (alerta='si') => {
-    const nombre = formulario.cli_nombre.value.trim()
-    const apellido = formulario.cli_apellido.value.trim()
-    const nit = formulario.cli_nit.value.trim()
-    const telefono = formulario.cli_telefono.value.trim()
-    const url = `/Jimenez_Gonzalez_IS2_crudjs/controllers/clientes/index.php?cli_nombre=${nombre}&cli_apellido=${apellido}&cli_nit=${nit}&cli_telefono=${telefono}`
+const getPacientes = async (alerta='si') => {
+    const nombre = formulario.paciente_nombre.value.trim()
+    const dpi = formulario.paciente_dpi.value.trim()
+    const telefono = formulario.paciente_telefono.value.trim()
+    const url = `/final_hospital_js/controladores/pacientes/index.php?paciente_nombre=${nombre}&paciente_dpi=${dpi}&paciente_telefono=${telefono}`
     const config = {
         method: 'GET'
     }
@@ -24,7 +23,7 @@ console.log(url)
         const data = await respuesta.json();
         console.log(data);
 
-        tablaClientes.tBodies[0].innerHTML = ''
+        tablaPacientes.tBodies[0].innerHTML = ''
         const fragment = document.createDocumentFragment()
         let contador = 1;
         if (respuesta.status == 200) {
@@ -36,7 +35,7 @@ console.log(url)
                     timer: 3000,
                     timerProgressBar: true,
                     icon: "success",
-                    title: 'Clientes encontrados',
+                    title: 'Pacientes encontrados',
                     didOpen: (toast) => {
                         toast.onmouseenter = Swal.stopTimer;
                         toast.onmouseleave = Swal.resumeTimer;
@@ -46,7 +45,7 @@ console.log(url)
             
 
             if (data.length > 0) {
-                data.forEach(cliente => {
+                data.forEach(paciente => {
                     const tr = document.createElement('tr')
                     const celda1 = document.createElement('td')
                     const celda2 = document.createElement('td')
@@ -54,24 +53,22 @@ console.log(url)
                     const celda4 = document.createElement('td')
                     const celda5 = document.createElement('td')
                     const celda6 = document.createElement('td')
-                    const celda7 = document.createElement('td')
                     const buttonModificar = document.createElement('button')
                     const buttonEliminar = document.createElement('button')
 
                     celda1.innerText = contador;
-                    celda2.innerText = cliente.CLI_NOMBRE;
-                    celda3.innerText = cliente.CLI_APELLIDO;
-                    celda4.innerText = cliente.CLI_NIT;
-                    celda5.innerText = cliente.CLI_TELEFONO;
+                    celda2.innerText = paciente.PACIENTE_NOMBRE;
+                    celda3.innerText = paciente.PACIENTE_DPI;
+                    celda4.innerText = paciente.PACIENTE_TELEFONO;
 
 
                     buttonModificar.textContent = 'Modificar'
                     buttonModificar.classList.add('btn', 'btn-warning', 'w-100')
-                    buttonModificar.addEventListener('click', () => llenardatos(cliente) )
+                    buttonModificar.addEventListener('click', () => llenardatos(paciente) )
                     //evento eliminar
                     buttonEliminar.textContent = 'Eliminar'
                     buttonEliminar.classList.add('btn', 'btn-danger', 'w-100')
-                    buttonEliminar.addEventListener('click', () => eliminar(cliente) )
+                    buttonEliminar.addEventListener('click', () => eliminar(paciente) )
 
                     celda6.appendChild(buttonModificar)
                     celda7.appendChild(buttonEliminar)
@@ -82,7 +79,6 @@ console.log(url)
                     tr.appendChild(celda4)
                     tr.appendChild(celda5)
                     tr.appendChild(celda6)
-                    tr.appendChild(celda7)
                     fragment.appendChild(tr);
 
                     contador++
@@ -91,33 +87,33 @@ console.log(url)
             } else {
                 const tr = document.createElement('tr')
                 const td = document.createElement('td')
-                td.innerText = 'No hay clientes'
+                td.innerText = 'No hay pacientes'
                 td.colSpan = 7;
 
                 tr.appendChild(td)
                 fragment.appendChild(tr)
             }
         } else {
-            console.log('error al cargar clientes');
+            console.log('error al cargar pacientes');
         }
 
-        tablaClientes.tBodies[0].appendChild(fragment)
+        tablaPacientes.tBodies[0].appendChild(fragment)
     } catch (error) {
         console.log(error);
     }
 }
 
 
+//funcion guardar pacientes
 
-
-const guardarCliente = async (e) => {
+const guardarPaciente = async (e) => {
     e.preventDefault();
     btnGuardar.disabled = true;
 
-    const url = '/Jimenez_Gonzalez_IS2_crudjs/controllers/clientes/index.php';
+    const url = '/final_hospital_js/controladores/pacientes/index.php';
     const formData = new FormData(formulario);
     formData.append('tipo', 1);
-    formData.delete('cli_id');
+    formData.delete('paciente_id');
     const config = {
         method: 'POST',
         body: formData
@@ -145,7 +141,7 @@ const guardarCliente = async (e) => {
             }).fire();
 
             //para ya no generar la alerta anterior 
-            getClientes(alerta='no');
+            getPacientes(alerta='no');
             formulario.reset();
         } else {
             console.log('Error:', detalle);
@@ -183,13 +179,12 @@ const guardarCliente = async (e) => {
 };
 
 //funcion modificar
-const llenardatos = (cliente) => {
+const llenardatos = (paciente) => {
 
-    formulario.cli_id.value = cliente.CLI_ID
-    formulario.cli_nombre.value = cliente.CLI_NOMBRE
-    formulario.cli_apellido.value = cliente.CLI_APELLIDO
-    formulario.cli_nit.value = cliente.CLI_NIT
-    formulario.cli_telefono.value = cliente.CLI_TELEFONO
+    formulario.paciente_id.value = paciente.PACIENTE_ID
+    formulario.paciente_nombre.value = paciente.PACIENTE_NOMBRE
+    formulario.paciente_dpi.value = paciente.PACIENTE_DPI
+    formulario.paciente_telefono.value = paciente.PACIENTE_TELEFONO
     btnBuscar.parentElement.style.display = 'none'
     btnGuardar.parentElement.style.display = 'none'
     btnLimpiar.parentElement.style.display = 'none'
@@ -214,7 +209,7 @@ const modificar = async(e) => {
     e.preventDefault();
     btnModificar.disabled = true;
 
-    const url = '/Jimenez_Gonzalez_IS2_crudjs/controllers/clientes/index.php';
+    const url = '/final_hospital_js/controladores/pacientes/index.php';
     const formData = new FormData(formulario);
     formData.append('tipo', 2);
     const config = {
@@ -245,7 +240,8 @@ const modificar = async(e) => {
 
             //funcion par que funcione cancelar
             formulario.reset()
-            getClientes(alerta='no');
+            getPacientes(alerta='no');
+
             btnBuscar.parentElement.style.display = ''
             btnGuardar.parentElement.style.display = ''
             btnLimpiar.parentElement.style.display = ''
@@ -286,13 +282,12 @@ const modificar = async(e) => {
     }
     btnModificar.disabled = false;
 
-    const llenardatos = (cliente) => {
+    const llenardatos = (paciente) => {
 
-        formulario.cli_id.value = cliente.CLI_ID
-        formulario.cli_nombre.value = cliente.CLI_NOMBRE
-        formulario.cli_apellido.value = cliente.CLI_APELLIDO
-        formulario.cli_nit.value = cliente.CLI_NIT
-        formulario.cli_telefono.value = cliente.CLI_TELEFONO
+        formulario.paciente_id.value = paciente.PACIENTE_ID
+        formulario.paciente_nombre.value = paciente.PACIENTE_NOMBRE
+        formulario.paciente_dpi.value = paciente.PACIENTE_DPI
+        formulario.paciente_telefono.value = paciente.PACIENTE_TELEFONO
         btnBuscar.parentElement.style.display = 'none'
         btnGuardar.parentElement.style.display = 'none'
         btnLimpiar.parentElement.style.display = 'none'
@@ -303,10 +298,9 @@ const modificar = async(e) => {
 
 }
 
-
 //funcion eliminar 
 
-const eliminar = async (cliente) => {
+const eliminar = async (paciente) => {
     const confirmacion = await Swal.fire({
         title: '¿Estás seguro?',
         text: "¡No se podrá cambiar después!",
@@ -319,10 +313,10 @@ const eliminar = async (cliente) => {
     });
 
     if (confirmacion.isConfirmed) {
-        const url = '/Jimenez_Gonzalez_IS2_crudjs/controllers/clientes/index.php';
+        const url = '/final_hospital_js/controladores/pacientes/index.php';
         const formData = new FormData();
         formData.append('tipo', 3);
-        formData.append('cli_id', cliente.CLI_ID);
+        formData.append('paciente_id', paciente.PACIENTE_ID);
         const config = {
             method: 'POST',
             body: formData
@@ -357,7 +351,7 @@ const eliminar = async (cliente) => {
                     timer: 5000,
                 });
                 formulario.reset()
-                getClientes(alerta='no');
+                getPacientes(alerta='no');
             } else {
                 console.log('Error:', detalle);
                 Swal.mixin({
@@ -394,9 +388,9 @@ const eliminar = async (cliente) => {
 };
 
    
-getClientes();
-formulario.addEventListener('submit', guardarCliente)
-btnBuscar.addEventListener('click', getClientes)
+getPacientes();
+formulario.addEventListener('submit', guardarPaciente)
+btnBuscar.addEventListener('click', getPacientes)
 btnModificar.addEventListener('click', modificar)
 btnCancelar.addEventListener('click', cancelarAccion)
 
