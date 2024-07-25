@@ -80,14 +80,14 @@ console.log(url)
             } else {
                 const tr = document.createElement('tr')
                 const td = document.createElement('td')
-                td.innerText = 'No hay pacientes'
+                td.innerText = 'No hay especialidades'
                 td.colSpan = 4;
 
                 tr.appendChild(td)
                 fragment.appendChild(tr)
             }
         } else {
-            console.log('error al cargar pacientes');
+            console.log('error al cargar especialidades');
         }
 
         tablaEspecialidades.tBodies[0].appendChild(fragment)
