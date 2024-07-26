@@ -13,47 +13,44 @@
 <div class="container" style="margin-top: 1cm; width: 29cm; border-radius: 1px;  ">
     <h1 class="text-center" style="font-family: fantasy;">FORMULARIO PARA INGRESAR PACIENTES</h1>
     <div class="row justify-content-center mb-3">
-    <form class="col-lg-8 border p-3 " style="background-color: rgba(115, 198, 182 ); font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; ">
-    <input type="hidden" name="paciente_id" id="paciente_id">
-    <div class="row mb-3">
-        <div class="col text-center">
-            <label for="paciente_nombre" class="form-label">Nombre del Paciente</label>
-            <input type="text" name="paciente_nombre" id="paciente_nombre" class="form-control " required>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 form-container" >
+                <form>
+                    <input type="hidden" name="paciente_id" id="paciente_id">
+                    <div class="form-group text-center">
+                        <label for="paciente_nombre" class="form-label">Nombre del Paciente</label>
+                        <input type="text" name="paciente_nombre" id="paciente_nombre" class="form-control " required>
+                    </div>
+                    <div class="form-group text-center">
+                        <label for="paciente_dpi" class="form-label">No. de DPI</label>
+                        <input type="text" name="paciente_dpi" id="paciente_dpi" class="form-control" required>
+                    </div>
+                    <div class="form-group text-center">
+                        <label for="paciente_telefono" class="form-label ">No. de Teléfono</label>
+                        <input type="text" name="paciente_telefono" id="paciente_telefono" class="form-control mb-2" required>
+                    </div>
+                    <div class="row">
+                        <div class="col text-center">
+                            <button type="submit" id="btnGuardar" class="btn btn-primary btn-block btn-custom "><i class="bi bi-floppy"></i> Guardar</button>
+                        </div>
+                        <div class="col text-center">
+                            <button type="button" id="btnBuscar" class="btn btn-success btn-block btn-custom "><i class="bi bi-search"></i>Buscar</button>
+                        </div>
+                        <div class="col text-center">
+                            <button type="button" id="btnModificar" class="btn btn-warning btn-block btn-custom "><i class="bi bi-pencil-square"> </i>Modificar</button>
+                        </div>
+                        <div class="col text-center">
+                            <button type="button" id="btnCancelar" class="btn btn-secondary btn-block btn-custom "><i class="bi bi-x-lg"></i> Cancelar</button>
+                        </div>
+                        <div class="col text-center">
+                            <button type="reset" id="btnLimpiar" class="btn btn-secondary btn-block btn-custom "><i class="bi bi-stars"></i> Limpiar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-
-    <div class="row mb-3">
-        <div class="col text-center">
-            <label for="paciente_dpi" class="form-label">No. de DPI</label>
-            <input type="text" name="paciente_dpi" id="paciente_dpi" class="form-control " required>
-        </div>
-    </div>
-
-    <div class="row mb-3">
-        <div class="col text-center" >
-            <label for="paciente_telefono" class="form-label">No. de Telefono</label>
-            <input type="text" name="paciente_telefono" id="paciente_telefono" class="form-control" required>
-        </div>
-    </div>
-
-    <div class="row justify-content-center mb-3">
-        <div class="col">
-            <button type="submit" id="btnGuardar" class="btn btn-primary w-100 rounded-pill">Guardar</button>
-        </div>
-        <div class="col">
-            <button type="button" id="btnBuscar" class="btn btn-info w-100 rounded-pill">Buscar</button>
-        </div>
-        <div class="col">
-            <button type="button" id="btnModificar" class="btn btn-warning w-100 rounded-pill">Modificar</button>
-        </div>
-        <div class="col">
-            <button type="button" id="btnCancelar" class="btn btn-secondary w-100 rounded-pill">Cancelar</button>
-        </div>
-        <div class="col">
-            <button type="reset" id="btnLimpiar" class="btn btn-secondary w-100 rounded-pill">Limpiar</button>
-        </div>
-    </div>
-</form>
 
     </div>
     <div class="row justify-content-center">

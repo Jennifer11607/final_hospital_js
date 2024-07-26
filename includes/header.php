@@ -16,6 +16,25 @@
 body{
     background-color: #2471A3;
 }
+.navbar-brand img {
+            height: 40px; /* Ajusta el tamaño de la imagen según tus necesidades */
+            margin-right: 10px;
+        }
+
+.form-container {
+            background-color: #a2d9ce ;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .btn-custom {
+            transition: all 0.3s ease;
+        }
+        .btn-custom:hover {
+            transform: scale(1.15);
+        }
+
+
 
 /* Asegúrate de que los dropdowns estén alineados a la derecha */
 .navbar-nav {

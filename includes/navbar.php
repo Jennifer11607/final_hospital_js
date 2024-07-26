@@ -7,7 +7,7 @@
                 <a class="navbar-brand mx-auto" href="#"><i class="bi bi-hospital"></i>  HOSPITAL ESPERANZA</a>
                 <ul class="navbar-nav mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href=""><i class="bi bi-house-fill"></i> INICIO</a>
+                        <a class="nav-link active" aria-current="page" href="/final_hospital_js/zulu/inicio.php"><i class="bi bi-house-fill"></i> INICIO</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -15,22 +15,22 @@
                         </a>
                         <ul class="dropdown-menu bg-dark">
                             <li class="nav-item">
-                                <a class="nav-link" href="/final_hospital_js/vistas/pacientes/index.php"><i class="bi bi-person-arms-up"></i>PACIENTES</a>
+                                <a class="nav-link" href="/final_hospital_js/vistas/pacientes/index.php"><i class="bi bi-person-arms-up"></i> PACIENTES</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/final_hospital_js/vistas/especialidades/index.php"><i class="bi bi-heart-pulse-fill"></i></i>ESPECIALIDADES</a>
+                                <a class="nav-link" href="/final_hospital_js/vistas/especialidades/index.php"><i class="bi bi-heart-pulse-fill"></i></i> ESPECIALIDADES</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/final_hospital_js/vistas/clinicas/index.php"><i class="bi bi-prescription2"></i></i>CLINICAS</a>
+                                <a class="nav-link" href="/final_hospital_js/vistas/clinicas/index.php"><i class="bi bi-prescription2"></i></i> CLINICAS</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/final_hospital_js/vistas/medicos/index.php"><i class="bi bi-capsule"></i>MEDICOS</a>
+                                <a class="nav-link" href="/final_hospital_js/vistas/medicos/index.php"><i class="bi bi-capsule"></i> MEDICOS</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/final_hospital_js/vistas/citas/index.php"><i class="bi bi-clipboard2-pulse-fill"></i>CITAS</a>
+                                <a class="nav-link" href="/final_hospital_js/vistas/citas/index.php"><i class="bi bi-clipboard2-pulse-fill"></i> CITAS</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/final_hospital_js/vistas/detalles/index.php"><i class="bi bi-arrow-down-square-fill"></i>IMPRIMIR CITAS</a>
+                                <a class="nav-link" href="/final_hospital_js/vistas/detalles/index.php"><i class="bi bi-filetype-pdf"></i> IMPRIMIR CITAS</a>
                             </li>
                         </ul>
                     </li>
