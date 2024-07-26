@@ -64,6 +64,28 @@ class Cita extends Conexion
         return $resultado;
     }
 
+    //buscar citas
+    public function mostrarInformacion(...$columnas)
+    {
+        $cols = count($columnas) > 0 ? implode(',', $columnas) : '*';
+        $sql = "SELECT UNIQUE clinica_nombre ,cita_id, paciente_nombre, paciente_dpi, paciente_telefono, medico_nombre, cita_fecha, cita_medico, cita_hora, cita_referencia, cita_situacion FROM citas
+        INNER JOIN pacientes ON cita_paciente = paciente_id
+        INNER JOIN medicos ON cita_medico = medico_id
+        inner join clinicas on clinica_id = medico_clinica
+        where cita_situacion = 1";
+
+        if ($this->cita_medico != '') {
+            $sql .= " AND cita_medico = $this->cita_medico ";
+        }
+
+        // if ($this->cita_fecha != '') {
+        // $sql .= " AND cita_fecha = '$this->cita_fecha' ";
+        // }
+
+        $resultado = self::servir($sql);
+        return $resultado;
+    }
+
     public function modificar()
     {
         $sql = "UPDATE citas SET cita_paciente = '$this->cita_paciente', cita_medico = '$this->cita_medico', cita_fecha = '$this->cita_fecha', cita_hora '$this->cita_hora', cita_referencia '$this->cita_referencia' where cita_id = $this->cita_id";

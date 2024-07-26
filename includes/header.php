@@ -13,6 +13,9 @@
 
 <style>
 
+body{
+    background-color: #2471A3;
+}
 
 /* Asegúrate de que los dropdowns estén alineados a la derecha */
 .navbar-nav {
