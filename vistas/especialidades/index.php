@@ -6,6 +6,12 @@
 <?php include_once '../../includes/header.php' ?>
 <?php include_once '../../includes/navbar.php'?>
 
+
+
+
+
+
+
 <div class="container" style="margin-top: 1cm; width: 29cm; border-radius: 1px;  ">
     <h1 class="text-center" style="background-color: #2471A3; font-family: fantasy;">FORMULARIO PARA INGRESAR ESPECIALIDADES</h1>
     <div class="row justify-content-center mb-3">

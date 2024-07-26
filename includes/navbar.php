@@ -18,16 +18,19 @@
                                 <a class="nav-link" href="/final_hospital_js/vistas/pacientes/index.php">PACIENTES</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="../vistas/especialidades/index.php">ESPECIALIDADES</a>
+                                <a class="nav-link" href="/final_hospital_js/vistas/especialidades/index.php">ESPECIALIDADES</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="">CLINICAS</a>
+                                <a class="nav-link" href="/final_hospital_js/vistas/clinicas/index.php">CLINICAS</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="">MEDICOS</a>
+                                <a class="nav-link" href="/final_hospital_js/vistas/medicos/index.php">MEDICOS</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="">CITAS</a>
+                                <a class="nav-link" href="/final_hospital_js/vistas/citas/index.php">CITAS</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/final_hospital_js/vistas/detalles/index.php">IMPRIMIR CITAS</a>
                             </li>
                         </ul>
                     </li>

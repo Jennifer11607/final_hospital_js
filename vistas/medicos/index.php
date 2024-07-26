@@ -1,9 +1,35 @@
 <?php
 //ini_set('display_errors', 1);
 //ini_set('display_startup_errors', 1);
-//error_reporting(E_ALL);?>
+//error_reporting(E_ALL);
 
+require_once '../../modelos/Clinica.php';
+require_once '../../modelos/Especialidad.php';
 
+    try {
+        $especialidad = new Especialidad();
+  
+        $especialidades = $especialidad->buscar();
+   
+
+    } catch (PDOException $e) {
+        $error = $e->getMessage();
+    } catch (Exception $e2){
+        $error = $e2->getMessage();
+    }
+
+ 
+    try {
+        $clinica = new Clinica();
+        $clinicas = $clinica->buscar();
+
+    } catch(PDOException $e) {
+        $error = $e->getMessage();
+    } catch (Exception $e2) {
+        $error = $e2->getMessage();
+    }
+    
+?>
 
 
 

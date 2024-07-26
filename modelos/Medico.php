@@ -35,7 +35,7 @@ class Medico extends Conexion
         }
 
         if ($this->medico_espec != '') {
-            $sql .= " and medico_espec like '%$this->medico_espec%' ";
+            $sql .= " and medico_espec = '$this->medico_espec' ";
         }
 
         if ($this->medico_clinica != '') {

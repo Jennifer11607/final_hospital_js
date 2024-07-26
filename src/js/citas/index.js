@@ -3,18 +3,19 @@ const btnModificar = document.getElementById('btnModificar')
 const btnBuscar = document.getElementById('btnBuscar')
 const btnCancelar = document.getElementById('btnCancelar')
 const btnLimpiar = document.getElementById('btnLimpiar')
-const tablaClientes = document.getElementById('tablaClientes')
+const tablaCitas = document.getElementById('tablaCitas')
 const formulario = document.querySelector('form')
 
 btnModificar.parentElement.style.display = 'none'
 btnCancelar.parentElement.style.display = 'none'
 
-const getClientes = async (alerta='si') => {
-    const nombre = formulario.cli_nombre.value.trim()
-    const apellido = formulario.cli_apellido.value.trim()
-    const nit = formulario.cli_nit.value.trim()
-    const telefono = formulario.cli_telefono.value.trim()
-    const url = `/Jimenez_Gonzalez_IS2_crudjs/controllers/clientes/index.php?cli_nombre=${nombre}&cli_apellido=${apellido}&cli_nit=${nit}&cli_telefono=${telefono}`
+const getCitas = async (alerta='si') => {
+    const paciente = formulario.cita_paciente.value.trim()
+    const medico = formulario.cita_medico.value.trim()
+    const fecha = formulario.cita_fecha.value.trim()
+    const hora = formulario.cita_hora.value.trim()
+    const referencia = formulario.cita_referencia.value.trim()  
+    const url = `/final_hospital_js/controladores/citas/index.php?citas_nombre=${paciente}&cita_medico=${medico}&cita_fecha=${fecha}&cita_hora=${hora}&cita_referencia=${referencia}`
     const config = {
         method: 'GET'
     }
@@ -24,7 +25,7 @@ console.log(url)
         const data = await respuesta.json();
         console.log(data);
 
-        tablaClientes.tBodies[0].innerHTML = ''
+        tablaCitas.tBodies[0].innerHTML = ''
         const fragment = document.createDocumentFragment()
         let contador = 1;
         if (respuesta.status == 200) {
@@ -36,7 +37,7 @@ console.log(url)
                     timer: 3000,
                     timerProgressBar: true,
                     icon: "success",
-                    title: 'Clientes encontrados',
+                    title: 'Citas encontradas',
                     didOpen: (toast) => {
                         toast.onmouseenter = Swal.stopTimer;
                         toast.onmouseleave = Swal.resumeTimer;
@@ -46,7 +47,7 @@ console.log(url)
             
 
             if (data.length > 0) {
-                data.forEach(cliente => {
+                data.forEach(cita => {
                     const tr = document.createElement('tr')
                     const celda1 = document.createElement('td')
                     const celda2 = document.createElement('td')
@@ -55,26 +56,27 @@ console.log(url)
                     const celda5 = document.createElement('td')
                     const celda6 = document.createElement('td')
                     const celda7 = document.createElement('td')
+                    const celda8 = document.createElement('td')
                     const buttonModificar = document.createElement('button')
                     const buttonEliminar = document.createElement('button')
 
                     celda1.innerText = contador;
-                    celda2.innerText = cliente.CLI_NOMBRE;
-                    celda3.innerText = cliente.CLI_APELLIDO;
-                    celda4.innerText = cliente.CLI_NIT;
-                    celda5.innerText = cliente.CLI_TELEFONO;
-
+                    celda2.innerText = cita.CITA_PACIENTE;
+                    celda3.innerText = cita.CITA_MEDICO;
+                    celda4.innerText = cita.CITA_FECHA;
+                    celda5.innerText = cita.CITA_HORA;
+                    celda6.innerText = cita.CITA_REFERENCIA;
 
                     buttonModificar.textContent = 'Modificar'
                     buttonModificar.classList.add('btn', 'btn-warning', 'w-100')
-                    buttonModificar.addEventListener('click', () => llenardatos(cliente) )
+                    buttonModificar.addEventListener('click', () => llenardatos(cita) )
                     //evento eliminar
                     buttonEliminar.textContent = 'Eliminar'
                     buttonEliminar.classList.add('btn', 'btn-danger', 'w-100')
-                    buttonEliminar.addEventListener('click', () => eliminar(cliente) )
+                    buttonEliminar.addEventListener('click', () => eliminar(cita) )
 
-                    celda6.appendChild(buttonModificar)
-                    celda7.appendChild(buttonEliminar)
+                    celda7.appendChild(buttonModificar)
+                    celda8.appendChild(buttonEliminar)
 
                     tr.appendChild(celda1)
                     tr.appendChild(celda2)
@@ -83,6 +85,9 @@ console.log(url)
                     tr.appendChild(celda5)
                     tr.appendChild(celda6)
                     tr.appendChild(celda7)
+                    tr.appendChild(celda8)
+
+
                     fragment.appendChild(tr);
 
                     contador++
@@ -91,33 +96,35 @@ console.log(url)
             } else {
                 const tr = document.createElement('tr')
                 const td = document.createElement('td')
-                td.innerText = 'No hay clientes'
-                td.colSpan = 7;
+                td.innerText = 'No hay citas'
+                td.colSpan = 8;
 
                 tr.appendChild(td)
                 fragment.appendChild(tr)
             }
         } else {
-            console.log('error al cargar clientes');
+            console.log('error al cargar citas');
         }
 
-        tablaClientes.tBodies[0].appendChild(fragment)
+        tablaCitas.tBodies[0].appendChild(fragment)
     } catch (error) {
         console.log(error);
     }
 }
 
 
+//funcion guardar pacientes
 
-
-const guardarCliente = async (e) => {
+const guardarCita = async (e) => {
     e.preventDefault();
+    console.log('Botón Guardar presionado');  // Depuración
+
     btnGuardar.disabled = true;
 
-    const url = '/Jimenez_Gonzalez_IS2_crudjs/controllers/clientes/index.php';
+    const url = '/final_hospital_js/controladores/citas/index.php';
     const formData = new FormData(formulario);
     formData.append('tipo', 1);
-    formData.delete('cli_id');
+    formData.delete('cita_id');
     const config = {
         method: 'POST',
         body: formData
@@ -126,70 +133,94 @@ const guardarCliente = async (e) => {
     try {
         console.log('Enviando datos:', ...formData.entries());
         const respuesta = await fetch(url, config);
-        const data = await respuesta.json();
-        console.log('Respuesta recibida:', data);
-        const { mensaje, codigo, detalle } = data;
-        if (respuesta.ok && codigo === 1) {
-            Swal.mixin({
-                toast: true,
-                position: "top-end",
-                showConfirmButton: false,
-                timer: 3000,
-                timerProgressBar: true,
-                icon: "success",
-                title: mensaje,
-                didOpen: (toast) => {
-                    toast.onmouseenter = Swal.stopTimer;
-                    toast.onmouseleave = Swal.resumeTimer;
-                }
-            }).fire();
+        const data = await respuesta.text();  // Cambiar a text para depuración
 
-            //para ya no generar la alerta anterior 
-            getClientes(alerta='no');
-            formulario.reset();
-        } else {
-            console.log('Error:', detalle);
-            Swal.mixin({
+        try {
+            const jsonData = JSON.parse(data);
+            console.log('Respuesta recibida:', jsonData);
+            const { mensaje, codigo, detalle } = jsonData;
+
+            if (respuesta.ok && codigo === 1) {
+                Swal.fire({
+                    icon: 'success',
+                    title: mensaje,
+                    toast: true,
+                    position: 'center',//
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer);
+                        toast.addEventListener('mouseleave', Swal.resumeTimer);
+                    }
+                });
+
+                getCitas(alerta = 'no');
+                formulario.reset();
+            } else {
+                console.log('Error:', detalle);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error al guardar',
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer);
+                        toast.addEventListener('mouseleave', Swal.resumeTimer);
+                    }
+                });
+            }
+        } catch (error) {
+            console.error('Error al parsear JSON:', error, data);
+            Swal.fire({
+                icon: 'error',
+                title: 'Respuesta no válida',
+                text: data,
                 toast: true,
-                position: "top-end",
+                position: 'top-end',
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
-                icon: "error",
-                title: 'Error al guardar',
                 didOpen: (toast) => {
-                    toast.onmouseenter = Swal.stopTimer;
-                    toast.onmouseleave = Swal.resumeTimer;
+                    toast.addEventListener('mouseenter', Swal.stopTimer);
+                    toast.addEventListener('mouseleave', Swal.resumeTimer);
                 }
-            }).fire();
+            });
         }
     } catch (error) {
-        console.log('Error de conexión:', error);
-        Swal.mixin({
+        console.log('Error de comunicación:', error);
+        Swal.fire({
+            icon: 'error',
+            title: 'Error de conexión',
+            text: error.message,
             toast: true,
-            position: "top-end",
+            position: 'top-end',
             showConfirmButton: false,
             timer: 3000,
             timerProgressBar: true,
-            icon: "error",
-            title: 'Error de conexión',
             didOpen: (toast) => {
-                toast.onmouseenter = Swal.stopTimer;
-                toast.onmouseleave = Swal.resumeTimer;
+                toast.addEventListener('mouseenter', Swal.stopTimer);
+                toast.addEventListener('mouseleave', Swal.resumeTimer);
             }
-        }).fire();
+        });
+    } finally {
+        btnGuardar.disabled = false;
     }
-    btnGuardar.disabled = false;
 };
 
-//funcion modificar
-const llenardatos = (cliente) => {
 
-    formulario.cli_id.value = cliente.CLI_ID
-    formulario.cli_nombre.value = cliente.CLI_NOMBRE
-    formulario.cli_apellido.value = cliente.CLI_APELLIDO
-    formulario.cli_nit.value = cliente.CLI_NIT
-    formulario.cli_telefono.value = cliente.CLI_TELEFONO
+//funcion modificar
+const llenardatos = (cita) => {
+
+    formulario.cita_id.value = cita.CITA_ID
+    formulario.cita_paciente.value = cita.CITA_PACIENTE
+    formulario.cita_medico.value = cita.CITA_MEDICO
+    formulario.cita_fecha.value = cita.CITA_FECHA
+    formulario.cita_hora.value = cita.CITA_HORA
+    formulario.cita_referencia.value = cita.CITA_REFERENCIA
     btnBuscar.parentElement.style.display = 'none'
     btnGuardar.parentElement.style.display = 'none'
     btnLimpiar.parentElement.style.display = 'none'
@@ -214,7 +245,7 @@ const modificar = async(e) => {
     e.preventDefault();
     btnModificar.disabled = true;
 
-    const url = '/Jimenez_Gonzalez_IS2_crudjs/controllers/clientes/index.php';
+    const url = '/final_hospital_js/controladores/citas/index.php';
     const formData = new FormData(formulario);
     formData.append('tipo', 2);
     const config = {
@@ -245,7 +276,8 @@ const modificar = async(e) => {
 
             //funcion par que funcione cancelar
             formulario.reset()
-            getClientes(alerta='no');
+            getCitas(alerta='no');
+
             btnBuscar.parentElement.style.display = ''
             btnGuardar.parentElement.style.display = ''
             btnLimpiar.parentElement.style.display = ''
@@ -286,13 +318,14 @@ const modificar = async(e) => {
     }
     btnModificar.disabled = false;
 
-    const llenardatos = (cliente) => {
+    const llenardatos = (cita) => {
 
-        formulario.cli_id.value = cliente.CLI_ID
-        formulario.cli_nombre.value = cliente.CLI_NOMBRE
-        formulario.cli_apellido.value = cliente.CLI_APELLIDO
-        formulario.cli_nit.value = cliente.CLI_NIT
-        formulario.cli_telefono.value = cliente.CLI_TELEFONO
+        formulario.cita_id.value = cita.CITA_ID
+        formulario.cita_paciente.value = cita.CITA_PACIENTE
+        formulario.cita_medico.value = cita.CITA_MEDICO
+        formulario.cita_fecha.value = cita.CITA_FECHA
+        formulario.cita_hora.value = cita.CITA_HORA
+        formulario.cita_referencia.value = cita.CITA_REFERENCIA
         btnBuscar.parentElement.style.display = 'none'
         btnGuardar.parentElement.style.display = 'none'
         btnLimpiar.parentElement.style.display = 'none'
@@ -303,10 +336,9 @@ const modificar = async(e) => {
 
 }
 
-
 //funcion eliminar 
 
-const eliminar = async (cliente) => {
+const eliminar = async (cita) => {
     const confirmacion = await Swal.fire({
         title: '¿Estás seguro?',
         text: "¡No se podrá cambiar después!",
@@ -319,10 +351,10 @@ const eliminar = async (cliente) => {
     });
 
     if (confirmacion.isConfirmed) {
-        const url = '/Jimenez_Gonzalez_IS2_crudjs/controllers/clientes/index.php';
+        const url = '/final_hospital_js/controladores/citas/index.php';
         const formData = new FormData();
         formData.append('tipo', 3);
-        formData.append('cli_id', cliente.CLI_ID);
+        formData.append('cita_id', cita.CITA_ID);
         const config = {
             method: 'POST',
             body: formData
@@ -357,7 +389,7 @@ const eliminar = async (cliente) => {
                     timer: 5000,
                 });
                 formulario.reset()
-                getClientes(alerta='no');
+                getCitas(alerta='no');
             } else {
                 console.log('Error:', detalle);
                 Swal.mixin({
@@ -394,9 +426,9 @@ const eliminar = async (cliente) => {
 };
 
    
-getClientes();
-formulario.addEventListener('submit', guardarCliente)
-btnBuscar.addEventListener('click', getClientes)
+getCitas();
+formulario.addEventListener('submit', guardarCita)
+btnBuscar.addEventListener('click', getCitas)
 btnModificar.addEventListener('click', modificar)
 btnCancelar.addEventListener('click', cancelarAccion)
 

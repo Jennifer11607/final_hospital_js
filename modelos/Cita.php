@@ -1,55 +1,63 @@
 <?php
 require_once 'Conexion.php';
 
-class Cliente extends Conexion
+class Cita extends Conexion
 {
-    public $cli_id;
-    public $cli_nombre;
-    public $cli_apellido;
-    public $cli_nit;
-    public $cli_telefono;
-    public $cli_situacion;
+    public $cita_id;
+    public $cita_paciente;
+    public $cita_medico;
+    public $cita_fecha;
+    public $cita_hora;
+    public $cita_referencia;
+    public $cita_situacion;
 
 
     public function __construct($args = [])
     {
-        $this->cli_id = $args['cli_id'] ?? null;
-        $this->cli_nombre = $args['cli_nombre'] ?? '';
-        $this->cli_apellido = $args['cli_apellido'] ?? '';
-        $this->cli_nit = $args['cli_nit'] ?? '';
-        $this->cli_telefono = $args['cli_telefono'] ?? '';
-        $this->cli_situacion = $args['producto_situacion'] ?? '';
+        $this->cita_id = $args['cita_id'] ?? null;
+        $this->cita_paciente = $args['cita_paciente'] ?? '';
+        $this->cita_medico = $args['cita_medico'] ?? '';
+        $this->cita_fecha = $args['cita_fecha'] ?? '';
+        $this->cita_hora = $args['cita_hora'] ?? '';
+        $this->cita_referencia = $args['cita_referencia'] ?? '';
+        $this->cita_situacion = $args['cita_situacion'] ?? '';
     }
 
+
+
+
+    
     public function guardar()
     {
-        $sql = "INSERT INTO clientes(cli_nombre, cli_apellido, cli_nit, cli_telefono) values('$this->cli_nombre','$this->cli_apellido','$this->cli_nit','$this->cli_telefono')";
+        $sql = "INSERT INTO citas(cita_paciente, cita_medico, cita_fecha, cita_hora, cita_referencia) values('$this->cita_paciente','$this->cita_medico','$this->cita_fecha','$this->cita_hora','$this->cita_referencia')";
         $resultado = self::ejecutar($sql);
         return $resultado;
     }
 
     public function buscar()
     {
-        $sql = "SELECT * from clientes where cli_situacion = 1 ";
+        $sql = "SELECT * from citas where cita_situacion = 1 ";
 
-        if ($this->cli_nombre != '') {
-            $sql .= " and cli_nombre like '%$this->cli_nombre%' ";
+        if ($this->cita_paciente != '') {
+            $sql .= " and cita_paciente = '$this->cita_paciente' ";
         }
 
-        if ($this->cli_apellido != '') {
-            $sql .= " and cli_apellido like '%$this->cli_apellido%' ";
+        if ($this->cita_medico != '') {
+            $sql .= " and cita_medico = '$this->cita_medico' ";
         }
 
-        if ($this->cli_nit != '') {
-            $sql .= " and cli_nit = '$this->cli_nit' ";
+        if ($this->cita_fecha != '') {
+            $sql .= " and cita_fecha = '$this->cita_fecha' ";
+        }
+        if ($this->cita_fecha != '') {
+            $sql .= " and cita_hora = '$this->cita_hora' ";
+        }
+        if ($this->cita_fecha != '') {
+            $sql .= " and cita_referencia = '$this->cita_referencia' ";
         }
 
-        if ($this->cli_telefono != '') {
-            $sql .= " and cli_telefono = '$this->cli_telefono' ";
-        }
-
-        if ($this->cli_id != null) {
-            $sql .= " and cli_id = $this->cli_id ";
+        if ($this->cita_id != null) {
+            $sql .= " and cita_id = $this->cita_id ";
         }
  
         $resultado = self::servir($sql);
@@ -58,7 +66,7 @@ class Cliente extends Conexion
 
     public function modificar()
     {
-        $sql = "UPDATE clientes SET cli_nombre = '$this->cli_nombre', cli_apellido = '$this->cli_apellido', cli_nit = '$this->cli_nit', cli_telefono = '$this->cli_telefono' where cli_id = $this->cli_id";
+        $sql = "UPDATE citas SET cita_paciente = '$this->cita_paciente', cita_medico = '$this->cita_medico', cita_fecha = '$this->cita_fecha', cita_hora '$this->cita_hora', cita_referencia '$this->cita_referencia' where cita_id = $this->cita_id";
 
         $resultado = self::ejecutar($sql);
         return $resultado;
@@ -66,7 +74,7 @@ class Cliente extends Conexion
 
     public function eliminar()
     {
-        $sql = "UPDATE clientes SET cli_situacion = 0 where cli_id = $this->cli_id";
+        $sql = "UPDATE citas SET cita_situacion = 0 where cita_id = $this->cita_id";
 
         $resultado = self::ejecutar($sql);
         return $resultado;
