@@ -13,9 +13,6 @@
 
 <style>
 
-body{
-    background-color: #2471A3;
-}
 .navbar-brand img {
             height: 40px; /* Ajusta el tamaño de la imagen según tus necesidades */
             margin-right: 10px;

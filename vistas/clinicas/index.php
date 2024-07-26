@@ -22,19 +22,19 @@
 
             <div class="row justify-content-center mb-3">
                 <div class="col">
-                    <button type="submit" id="btnGuardar" class="btn btn-primary w-100 rounded-pill">Guardar</button>
+                    <button type="submit" id="btnGuardar" class="btn btn-primary w-100 rounded-pill"> <i class="bi bi-floppy"></i> Guardar</button>
                 </div>
                 <div class="col">
-                    <button type="button" id="btnBuscar" class="btn btn-info w-100 rounded-pill">Buscar</button>
+                    <button type="button" id="btnBuscar" class="btn btn-info w-100 rounded-pill"><i class="bi bi-search"></i> Buscar</button>
                 </div>
                 <div class="col">
-                    <button type="button" id="btnModificar" class="btn btn-warning w-100 rounded-pill">Modificar</button>
+                    <button type="button" id="btnModificar" class="btn btn-warning w-100 rounded-pill"><i class="bi bi-pencil-square"></i> Modificar</button>
                 </div>
                 <div class="col">
-                    <button type="button" id="btnCancelar" class="btn btn-secondary w-100 rounded-pill">Cancelar</button>
+                    <button type="button" id="btnCancelar" class="btn btn-secondary w-100 rounded-pill"><i class="bi bi-x-lg"></i> Cancelar</button>
                 </div>
                 <div class="col">
-                    <button type="reset" id="btnLimpiar" class="btn btn-secondary w-100 rounded-pill">Limpiar</button>
+                    <button type="reset" id="btnLimpiar" class="btn btn-secondary w-100 rounded-pill"><i class="bi bi-stars"></i> Limpiar</button>
                 </div>
             </div>
         </form>

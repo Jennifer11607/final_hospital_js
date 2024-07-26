@@ -13,7 +13,7 @@
 
 
 <div class="container" style="margin-top: 1cm; width: 29cm; border-radius: 1px;  ">
-    <h1 class="text-center" style="background-color: #2471A3; font-family: fantasy;">FORMULARIO PARA INGRESAR ESPECIALIDADES</h1>
+    <h1 class="text-center" style=" font-family: fantasy;">FORMULARIO PARA INGRESAR ESPECIALIDADES</h1>
     <div class="row justify-content-center mb-3">
     <form class="col-lg-8 border p-3 " style=" font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; ">
     <input type="hidden" name="espec_id" id="espec_id">
@@ -27,19 +27,19 @@
   
     <div class="row justify-content-center mb-3">
         <div class="col">
-            <button type="submit" id="btnGuardar" class="btn btn-primary w-100 rounded-pill">Guardar</button>
+            <button type="submit" id="btnGuardar" class="btn btn-primary w-100 rounded-pill"><i class="bi bi-floppy"> </i>Guardar</button>
         </div>
         <div class="col">
-            <button type="button" id="btnBuscar" class="btn btn-info w-100 rounded-pill">Buscar</button>
+            <button type="button" id="btnBuscar" class="btn btn-info w-100 rounded-pill"><i class="bi bi-search"></i> Buscar</button>
         </div>
         <div class="col">
-            <button type="button" id="btnModificar" class="btn btn-warning w-100 rounded-pill">Modificar</button>
+            <button type="button" id="btnModificar" class="btn btn-warning w-100 rounded-pill"><i class="bi bi-pencil-square"></i> Modificar</button>
         </div>
         <div class="col">
-            <button type="button" id="btnCancelar" class="btn btn-secondary w-100 rounded-pill">Cancelar</button>
+            <button type="button" id="btnCancelar" class="btn btn-secondary w-100 rounded-pill"><i class="bi bi-x-lg"></i> Cancelar</button>
         </div>
         <div class="col">
-            <button type="reset" id="btnLimpiar" class="btn btn-secondary w-100 rounded-pill">Limpiar</button>
+            <button type="reset" id="btnLimpiar" class="btn btn-secondary w-100 rounded-pill"><i class="bi bi-stars"></i> Limpiar</button>
         </div>
     </div>
 </form>
