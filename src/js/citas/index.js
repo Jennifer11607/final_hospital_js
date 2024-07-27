@@ -103,6 +103,7 @@ console.log(url)
         } else {
             console.log('error al cargar citas');
             
+            
         }
 
         tablaCitas.tBodies[0].appendChild(fragment)
@@ -317,21 +318,6 @@ const modificar = async(e) => {
     }
     btnModificar.disabled = false;
 
-    const llenardatos = (cita) => {
-
-        formulario.cita_id.value = cita.CITA_ID
-        formulario.cita_paciente.value = cita.CITA_PACIENTE
-        formulario.cita_medico.value = cita.CITA_MEDICO
-        formulario.cita_fecha.value = cita.CITA_FECHA
-        formulario.cita_hora.value = cita.CITA_HORA
-        formulario.cita_referencia.value = cita.CITA_REFERENCIA
-        btnBuscar.parentElement.style.display = 'none'
-        btnGuardar.parentElement.style.display = 'none'
-        btnLimpiar.parentElement.style.display = 'none'
-        btnModificar.parentElement.style.display = ''
-        btnCancelar.parentElement.style.display = ''
-    
-    }
 
 }
 

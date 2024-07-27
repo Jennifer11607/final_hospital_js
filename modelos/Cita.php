@@ -52,7 +52,7 @@ class Cita extends Conexion
         if ($this->cita_fecha != '') {
             $sql .= " and cita_hora = '$this->cita_hora' ";
         }
-        if ($this->cita_fecha != '') {
+        if ($this->cita_referencia != '') {
             $sql .= " and cita_referencia = '$this->cita_referencia' ";
         }
 
