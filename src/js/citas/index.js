@@ -15,7 +15,7 @@ const getCitas = async (alerta='si') => {
     const fecha = formulario.cita_fecha.value.trim()
     const hora = formulario.cita_hora.value.trim()
     const referencia = formulario.cita_referencia.value.trim()  
-    const url = `/final_hospital_js/controladores/citas/index.php?citas_nombre=${paciente}&cita_medico=${medico}&cita_fecha=${fecha}&cita_hora=${hora}&cita_referencia=${referencia}`
+    const url = `/final_hospital_js/controladores/citas/index.php?cita_paciente=${paciente}&cita_medico=${medico}&cita_fecha=${fecha}&cita_hora=${hora}&cita_referencia=${referencia}`
     const config = {
         method: 'GET'
     }
@@ -32,7 +32,7 @@ console.log(url)
             if (alerta =='si') {
                 Swal.mixin({
                     toast: true,
-                    position: "top-end",
+                    position: "center",
                     showConfirmButton: false,
                     timer: 3000,
                     timerProgressBar: true,
@@ -86,8 +86,6 @@ console.log(url)
                     tr.appendChild(celda6)
                     tr.appendChild(celda7)
                     tr.appendChild(celda8)
-
-
                     fragment.appendChild(tr);
 
                     contador++
@@ -104,6 +102,7 @@ console.log(url)
             }
         } else {
             console.log('error al cargar citas');
+            
         }
 
         tablaCitas.tBodies[0].appendChild(fragment)
