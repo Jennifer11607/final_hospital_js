@@ -1,33 +1,35 @@
-const btnGuardar = document.getElementById('btnGuardar')
-const btnModificar = document.getElementById('btnModificar')
-const btnBuscar = document.getElementById('btnBuscar')
-const btnCancelar = document.getElementById('btnCancelar')
-const btnLimpiar = document.getElementById('btnLimpiar')
-const tablaMedicos = document.getElementById('tablaMedicos')
-const formulario = document.querySelector('form')
+const btnGuardar = document.getElementById('btnGuardar');
+const btnModificar = document.getElementById('btnModificar');
+const btnBuscar = document.getElementById('btnBuscar');
+const btnCancelar = document.getElementById('btnCancelar');
+const btnLimpiar = document.getElementById('btnLimpiar');
+const tablaMesas = document.getElementById('tablaMesas');
+const formulario = document.querySelector('form');
 
-btnModificar.parentElement.style.display = 'none'
-btnCancelar.parentElement.style.display = 'none'
+btnModificar.parentElement.style.display = 'none';
+btnCancelar.parentElement.style.display = 'none';
 
-const getMedicos = async (alerta='si') => {
-    const nombre = formulario.medico_nombre.value.trim()
-    const especialidad = formulario.medico_espec.value.trim()
-    const clinica = formulario.medico_clinica.value.trim()
-    const url = `/final_hospital_js/controladores/medicos/index.php?medico_nombre=${nombre}&medico_espec=${especialidad}&medico_clinica=${clinica}`
+const getMesas = async (alerta = 'si') => {
+    const numero = formulario.mesa_numero.value.trim();
+    const capacidad = formulario.mesa_capacidad.value.trim();
+    const ubicacion = formulario.mesa_ubicacion.value.trim();
+    const url = `/restaurante_jimenez/controladores/mesas/index.php?mesa_numero=${numero}&mesa_capacidad=${capacidad}&mesa_ubicacion=${ubicacion}`;
     const config = {
         method: 'GET'
-    }
-console.log(url)
+    };
+    
+    console.log(url); // Depuración de la URL
+    
     try {
         const respuesta = await fetch(url, config);
         const data = await respuesta.json();
-        console.log(data);
+        console.log(data); // Depuración de la respuesta
 
-        tablaMedicos.tBodies[0].innerHTML = ''
-        const fragment = document.createDocumentFragment()
+        tablaMesas.tBodies[0].innerHTML = '';
+        const fragment = document.createDocumentFragment();
         let contador = 1;
-        if (respuesta.status == 200) {
-            if (alerta =='si') {
+        if (respuesta.status === 200) {
+            if (alerta === 'si') {
                 Swal.mixin({
                     toast: true,
                     position: "top-end",
@@ -35,87 +37,82 @@ console.log(url)
                     timer: 3000,
                     timerProgressBar: true,
                     icon: "success",
-                    title: 'Medicos encontrados',
+                    title: 'Registros encontrados',
                     didOpen: (toast) => {
                         toast.onmouseenter = Swal.stopTimer;
                         toast.onmouseleave = Swal.resumeTimer;
                     }
                 }).fire();
             }
-            
 
             if (data.length > 0) {
-                data.forEach(medico => {
-                    const tr = document.createElement('tr')
-                    const celda1 = document.createElement('td')
-                    const celda2 = document.createElement('td')
-                    const celda3 = document.createElement('td')
-                    const celda4 = document.createElement('td')
-                    const celda5 = document.createElement('td')
-                    const celda6 = document.createElement('td')
-                    const buttonModificar = document.createElement('button')
-                    const buttonEliminar = document.createElement('button')
+                data.forEach(mesa => {
+                    const tr = document.createElement('tr');
+                    const celda1 = document.createElement('td');
+                    const celda2 = document.createElement('td');
+                    const celda3 = document.createElement('td');
+                    const celda4 = document.createElement('td');
+                    const celda5 = document.createElement('td');
+                    const celda6 = document.createElement('td');
+                    const buttonModificar = document.createElement('button');
+                    const buttonEliminar = document.createElement('button');
 
                     celda1.innerText = contador;
-                    celda2.innerText = medico.MEDICO_NOMBRE;
-                    celda3.innerText = medico.MEDICO_ESPEC;
-                    celda4.innerText = medico.MEDICO_CLINICA;
+                    celda2.innerText = mesa.MESA_NUMERO;
+                    celda3.innerText = mesa.MESA_CAPACIDAD;
+                    celda4.innerText = mesa.MESA_UBICACION;
 
+                    buttonModificar.textContent = 'Modificar';
+                    buttonModificar.classList.add('btn', 'btn-warning', 'w-100');
+                    buttonModificar.addEventListener('click', () => llenardatos(mesa));
+                    
+                    buttonEliminar.textContent = 'Eliminar';
+                    buttonEliminar.classList.add('btn', 'btn-danger', 'w-100');
+                    buttonEliminar.addEventListener('click', () => eliminar(mesa));
 
-                    buttonModificar.textContent = 'Modificar'
-                    buttonModificar.classList.add('btn', 'btn-warning', 'w-100')
-                    buttonModificar.addEventListener('click', () => llenardatos(medico) )
-                    //evento eliminar
-                    buttonEliminar.textContent = 'Eliminar'
-                    buttonEliminar.classList.add('btn', 'btn-danger', 'w-100')
-                    buttonEliminar.addEventListener('click', () => eliminar(medico) )
+                    celda5.appendChild(buttonModificar);
+                    celda6.appendChild(buttonEliminar);
 
-                    celda5.appendChild(buttonModificar)
-                    celda6.appendChild(buttonEliminar)
-
-                    tr.appendChild(celda1)
-                    tr.appendChild(celda2)
-                    tr.appendChild(celda3)
-                    tr.appendChild(celda4)
-                    tr.appendChild(celda5)
-                    tr.appendChild(celda6)
+                    tr.appendChild(celda1);
+                    tr.appendChild(celda2);
+                    tr.appendChild(celda3);
+                    tr.appendChild(celda4);
+                    tr.appendChild(celda5);
+                    tr.appendChild(celda6);
                     fragment.appendChild(tr);
 
-                    contador++
+                    contador++;
                 });
-
             } else {
-                const tr = document.createElement('tr')
-                const td = document.createElement('td')
-                td.innerText = 'No hay Medicos'
+                const tr = document.createElement('tr');
+                const td = document.createElement('td');
+                td.innerText = 'No hay Registros';
                 td.colSpan = 6;
 
-                tr.appendChild(td)
-                fragment.appendChild(tr)
+                tr.appendChild(td);
+                fragment.appendChild(tr);
             }
         } else {
-            console.log('error al cargar pacientes');
+            console.log('Error al cargar registros');
         }
 
-        tablaMedicos.tBodies[0].appendChild(fragment)
+        tablaMesas.tBodies[0].appendChild(fragment);
     } catch (error) {
         console.log(error);
     }
-}
+};
 
-
-//funcion guardar pacientes
-
-const guardarMedico = async (e) => {
+// Función para guardar mesas
+const guardarMesa = async (e) => {
     e.preventDefault();
     console.log('Botón Guardar presionado');  // Depuración
 
     btnGuardar.disabled = true;
 
-    const url = '/final_hospital_js/controladores/medicos/index.php';
+    const url = '/restaurante_jimenez/controladores/mesas/index.php';
     const formData = new FormData(formulario);
     formData.append('tipo', 1);
-    formData.delete('medico_id');
+    formData.delete('mesa_id');
     const config = {
         method: 'POST',
         body: formData
@@ -146,7 +143,7 @@ const guardarMedico = async (e) => {
                     }
                 });
 
-                getMedicos(alerta = 'no');
+                getMesas('no');
                 formulario.reset();
             } else {
                 console.log('Error:', detalle);
@@ -202,39 +199,35 @@ const guardarMedico = async (e) => {
     }
 };
 
-
-//funcion modificar
-const llenardatos = (medico) => {
-
-    formulario.medico_id.value = medico.MEDICO_ID
-    formulario.medico_nombre.value = medico.MEDICO_NOMBRE
-    formulario.medico_espec.value = medico.MEDICO_ESPEC
-    formulario.medico_clinica.value = medico.MEDICO_CLINICA
-    btnBuscar.parentElement.style.display = 'none'
-    btnGuardar.parentElement.style.display = 'none'
-    btnLimpiar.parentElement.style.display = 'none'
-    btnModificar.parentElement.style.display = ''
-    btnCancelar.parentElement.style.display = ''
-
+// Función para llenar datos en el formulario para modificar
+const llenardatos = (mesa) => {
+    formulario.mesa_id.value = mesa.MESA_ID;
+    formulario.mesa_numero.value = mesa.MESA_NUMERO;
+    formulario.mesa_capacidad.value = mesa.MESA_CAPACIDAD;
+    formulario.mesa_ubicacion.value = mesa.MESA_UBICACION;
+    btnBuscar.parentElement.style.display = 'none';
+    btnGuardar.parentElement.style.display = 'none';
+    btnLimpiar.parentElement.style.display = 'none';
+    btnModificar.parentElement.style.display = '';
+    btnCancelar.parentElement.style.display = '';
 }
 
-//funcion eliminar
-
+// Función para cancelar la acción
 const cancelarAccion = (e) => {
     formulario.reset();
-    btnBuscar.parentElement.style.display = ''
-    btnGuardar.parentElement.style.display = ''
-    btnLimpiar.parentElement.style.display = ''
-    btnModificar.parentElement.style.display = 'none'
-    btnCancelar.parentElement.style.display = 'none'
-
+    btnBuscar.parentElement.style.display = '';
+    btnGuardar.parentElement.style.display = '';
+    btnLimpiar.parentElement.style.display = '';
+    btnModificar.parentElement.style.display = 'none';
+    btnCancelar.parentElement.style.display = 'none';
 }
 
-const modificar = async(e) => {
+// Función para modificar mesas
+const modificar = async (e) => {
     e.preventDefault();
     btnModificar.disabled = true;
 
-    const url = '/final_hospital_js/controladores/medicos/index.php';
+    const url = '/restaurante_jimenez/controladores/mesas/index.php';
     const formData = new FormData(formulario);
     formData.append('tipo', 2);
     const config = {
@@ -263,16 +256,14 @@ const modificar = async(e) => {
                 }
             }).fire();
 
-            //funcion par que funcione cancelar
-            formulario.reset()
-            getMedicos(alerta='no');
+            formulario.reset();
+            getMesas('no');
 
-            btnBuscar.parentElement.style.display = ''
-            btnGuardar.parentElement.style.display = ''
-            btnLimpiar.parentElement.style.display = ''
-            btnModificar.parentElement.style.display = 'none'
-            btnCancelar.parentElement.style.display = 'none'
-         
+            btnBuscar.parentElement.style.display = '';
+            btnGuardar.parentElement.style.display = '';
+            btnLimpiar.parentElement.style.display = '';
+            btnModificar.parentElement.style.display = 'none';
+            btnCancelar.parentElement.style.display = 'none';
         } else {
             console.log('Error:', detalle);
             Swal.mixin({
@@ -306,26 +297,10 @@ const modificar = async(e) => {
         }).fire();
     }
     btnModificar.disabled = false;
-
-    const llenardatos = (medico) => {
-
-        formulario.medico_id.value = medico.MEDICO_ID
-        formulario.medico_nombre.value = medico.MEDICO_NOMBRE
-        formulario.medico_espec.value = medico.MEDICO_ESPEC
-        formulario.medico_clinica.value = medico.MEDICO_CLINICA
-        btnBuscar.parentElement.style.display = 'none'
-        btnGuardar.parentElement.style.display = 'none'
-        btnLimpiar.parentElement.style.display = 'none'
-        btnModificar.parentElement.style.display = ''
-        btnCancelar.parentElement.style.display = ''
-    
-    }
-
 }
 
-//funcion eliminar 
-
-const eliminar = async (medico) => {
+// Función para eliminar mesas
+const eliminar = async (mesa) => {
     const confirmacion = await Swal.fire({
         title: '¿Estás seguro?',
         text: "¡No se podrá cambiar después!",
@@ -338,10 +313,10 @@ const eliminar = async (medico) => {
     });
 
     if (confirmacion.isConfirmed) {
-        const url = '/final_hospital_js/controladores/medicos/index.php';
+        const url = '/restaurante_jimenez/controladores/mesas/index.php';
         const formData = new FormData();
         formData.append('tipo', 3);
-        formData.append('medico_id', medico.MEDICO_ID);
+        formData.append('mesa_id', mesa.MESA_ID);
         const config = {
             method: 'POST',
             body: formData
@@ -368,15 +343,15 @@ const eliminar = async (medico) => {
                     }
                 }).fire();
 
-                // Mostrar la alerta de éxito
                 Swal.fire({
                     icon: 'success',
                     title: 'Eliminado correctamente',
                     showConfirmButton: false,
                     timer: 5000,
                 });
-                formulario.reset()
-                getMedicos(alerta='no');
+
+                formulario.reset();
+                getMesas('no');
             } else {
                 console.log('Error:', detalle);
                 Swal.mixin({
@@ -412,12 +387,8 @@ const eliminar = async (medico) => {
     }
 };
 
-   
-getMedicos();
-formulario.addEventListener('submit', guardarMedico)
-btnBuscar.addEventListener('click', getMedicos)
-btnModificar.addEventListener('click', modificar)
-btnCancelar.addEventListener('click', cancelarAccion)
-
-
-
+getMesas();
+formulario.addEventListener('submit', guardarMesa);
+btnBuscar.addEventListener('click', getMesas);
+btnModificar.addEventListener('click', modificar);
+btnCancelar.addEventListener('click', cancelarAccion);

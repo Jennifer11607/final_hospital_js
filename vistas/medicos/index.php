@@ -49,7 +49,7 @@ require_once '../../modelos/Especialidad.php';
     </div>
 
         <div class="row mb-3">
-            <div class="col text-center">
+            <div class="col text-center ">
             <label for="medico_espec">Especialidad</label>
             <select name="medico_espec" id="medico_espec" class="form-control">
             <option value="">SELECCIONE...</option>
@@ -72,7 +72,7 @@ require_once '../../modelos/Especialidad.php';
                 </div>
         </div>
 
-    <div class="row justify-content-center mb-3">
+    <div class="row justify-content-center mb-3 mt-2">
         <div class="col">
             <button type="submit" id="btnGuardar" class="btn btn-primary w-100 rounded-pill"><i class="bi bi-floppy"></i> Guardar</button>
         </div>
